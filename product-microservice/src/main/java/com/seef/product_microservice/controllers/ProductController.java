@@ -34,7 +34,7 @@ public class ProductController {
     }
 
     public List<UserDTO> fallback(Throwable e){
-        System.err.println("Erreur lors de l'appel à getUserForProduit : " + e.getMessage());
+        System.err.println("Erreur lors de l'appel à users-for-produits : " + e.getMessage());
         return List.of(new UserDTO(0, "User -1"));
     }
 

@@ -70,8 +70,8 @@ public class UserController {
     }
 
 
-    public List<ProduitDTO> fallback(Throwable e) {
-        System.err.println("Erreur lors de l'appel à getAllProduits : " + e.getMessage());
-        return List.of(); // Retourne une liste vide ou une valeur par défaut
+    public List<?> fallback(Throwable e) {
+        System.err.println("Erreur lors de l'appel à produit-for-user : " + e.getMessage());
+        return List.of("ERREUR"); // Retourne une liste vide ou une valeur par défaut
     }
 }
