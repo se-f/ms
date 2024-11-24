@@ -30,9 +30,6 @@ public class UserController {
 
     // Get all users
     @GetMapping
-//    @Retry(name = "myRetry", fallbackMethod = "fallback")
-    @RateLimiter(name = "myRateLimiter", fallbackMethod = "fallback")
-//    @CircuitBreaker(name = "user-microservice", fallbackMethod = "fallback")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
@@ -65,16 +62,16 @@ public class UserController {
 
 
     @GetMapping("/produits-for-user")
-//    @Retry(name = "myRetry", fallbackMethod = "fallback")
+    @Retry(name = "myRetry", fallbackMethod = "fallback")
     @RateLimiter(name = "myRateLimiter", fallbackMethod = "fallback")
-//    @CircuitBreaker(name = "user-microservice", fallbackMethod = "fallback")
+    @CircuitBreaker(name = "user-microservice", fallbackMethod = "fallback")
     public List<ProduitDTO> getProduitForUser() {
         return userService.getProduitForUser();
     }
 
 
     public List<ProduitDTO> fallback(Throwable e) {
-        System.err.println("Erreur lors de l'appel à getAllUsers : " + e.getMessage());
+        System.err.println("Erreur lors de l'appel à getAllProduits : " + e.getMessage());
         return List.of(); // Retourne une liste vide ou une valeur par défaut
     }
 }

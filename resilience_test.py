@@ -2,6 +2,7 @@ import threading
 import requests
 
 # The URL to send requests to
+# url = "http://localhost:8082/produits/users-for-produits"
 url = "http://localhost:8081/users/produits-for-user"
 
 # Function to send a request and print the response

@@ -6,7 +6,6 @@ import com.seef.product_microservice.services.ProductService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,21 +21,20 @@ public class ProductController {
     }
 
     @GetMapping()
-//    @Retry(name = "myRetry", fallbackMethod = "fallback")
-    @RateLimiter(name = "myRateLimiter", fallbackMethod = "fallback")
-//    @CircuitBreaker(name = "product-microservice", fallbackMethod = "fallback")
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
 
-    @RateLimiter(name = "myRateLimiter", fallbackMethod = "fallbackRateLimit")
-    @GetMapping("/users-for-product")
+    @RateLimiter(name = "myRateLimiter", fallbackMethod = "fallback")
+    @GetMapping("/users-for-produits")
+    @CircuitBreaker(name = "product-microservice", fallbackMethod = "fallback")
+    @Retry(name = "myRetry", fallbackMethod = "fallback")
     public List<UserDTO> getUserForProduit() {
         return productService.getUserForProduit();
     }
 
-    public List<UserDTO> fallbackRateLimit(){
-        System.out.println("Fallback method called");
+    public List<UserDTO> fallback(Throwable e){
+        System.err.println("Erreur lors de l'appel à getUserForProduit : " + e.getMessage());
         return List.of(new UserDTO(0, "User -1"));
     }
 
@@ -58,12 +56,6 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Integer id) {
         productService.deleteProduct(id);
-    }
-
-
-    public List<Product> fallback(Exception e) {
-        System.out.println("Fallback method called");
-        return List.of(new Product(0, "Product -1", "-1", 0.0));
     }
 
 }
