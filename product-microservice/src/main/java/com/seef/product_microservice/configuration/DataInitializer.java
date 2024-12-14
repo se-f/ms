@@ -18,8 +18,8 @@ public class DataInitializer {
     @Bean
     CommandLineRunner initDatabase(ProductService productService) {
         return args -> {
-            productService.addProduct(new Product(1, "Product 1", "Description of product 1", 100.0));
-            productService.addProduct(new Product(2, "Product 2", "Description of product 2", 200.0));
+            productService.addProduct(new Product("1", "Product 1", "Description of product 1", 100.0));
+            productService.addProduct(new Product("2", "Product 2", "Description of product 2", 200.0));
         };
     }
 

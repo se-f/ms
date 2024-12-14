@@ -25,11 +25,11 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public Product getProductById(int id) {
+    public Product getProductById(String id) {
         return productRepository.findById(id).get();
     }
 
-    public void deleteProduct(int id) {
+    public void deleteProduct(String id) {
         productRepository.deleteById(id);
     }
 

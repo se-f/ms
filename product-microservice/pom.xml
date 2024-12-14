@@ -109,6 +109,12 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
+		<!-- Axon Framewo rk -->
+		<dependency>
+		<groupId>org.axonframework</groupId>
+		<artifactId>axon-spring-boot-starter</artifactId>
+		<version>4.9.1</version>
+		</dependency>
 
 	</dependencies>
 	<dependencyManagement>
